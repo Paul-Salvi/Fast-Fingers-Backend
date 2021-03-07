@@ -1,5 +1,6 @@
+var dbConnection = require('../configs/db.config');
 
-var WordManager = function (word) {
+var Word = function (word) {
    if (!word) {
       return null;
    }
@@ -17,26 +18,24 @@ var WordManager = function (word) {
 }
 
 
-WordManager.create = function (word) {
+Word.create = function (word,result) {
    if (!word) {
       var errMsg = "Invalid word";
       return result(errMsg, null);;
    }
    var queryData = [word.name, word.difficultyType, word.isValid];
-   dbConnection.query("insert into words (name,value) values (?,?,?);", queryData, function (err, res) {
+   dbConnection.query("insert into words (name,difficultyType,isValid) values (?,?,?);", queryData, function (err, res) {
       if (err) {
-         console.log("error: ", err);
          result(err, null);
-      } else {
-         console.log(res.insertId);
+      } else {        
          result(null, res.insertId);
       }
    });
 };
 
-WordManager.get = function (difficulty, result) {
+Word.get = function (difficulty, result) {
 
-   dbConnection.query("SELECT * FROM words WHERE difficultyType = ?", [difficulty], function (err, res, fields) {
+   dbConnection.query("SELECT * FROM words WHERE difficultyType = ? ORDER BY RAND() LIMIT 1", [difficulty], function (err, res, fields) {
       if (res.length > 0)
          return result(null, res);
       if (err)
@@ -45,4 +44,4 @@ WordManager.get = function (difficulty, result) {
    });
 };
 
-module.exports = WordManager;
+module.exports = Word;

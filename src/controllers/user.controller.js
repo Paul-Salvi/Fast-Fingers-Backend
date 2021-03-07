@@ -10,8 +10,8 @@ exports.createUser = function (req, res) {
    const newUser = new User(req.body);
    User.create(newUser, function (err, user) {
       if (err)
-         return res.json(err);
-      return res.json({ message: "Registration completed successfully." });
+         return res.json({ Error: err });
+      return res.json({ message: res });
    });
 
 };
@@ -19,8 +19,8 @@ exports.getUserScores = function (req, res) {
    const userData = jwt.decodePayload(req);
    User.getScores(userData.id, function (err, scores) {
       if (err)
-         return res.json(err);     
-      return res.json(scores);
+         return res.json({ Error: err });
+      return res.json({ message: res });
    });
 };
 
@@ -34,7 +34,7 @@ exports.saveUserScore = function (req, res) {
 
    User.saveScore(newScore, function (err, users) {
       if (err)
-         return res.send(err);
-      return res.json(users);
+         return res.json({ Error: err });
+      return res.json({ message: res });
    });
 };

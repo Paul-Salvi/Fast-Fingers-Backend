@@ -15,6 +15,4 @@ https://www.getpostman.com/collections/cd4815fffeecdef44d85
 * DB_USER=test
 * DB_PASSWORD=test
 * DATABASE=test
-* ACCESS_TOKEN_SECRET=test
-* ALGORITHM=HS256 (default)
-* ACCESS_TOKEN_LIFE=10h
+

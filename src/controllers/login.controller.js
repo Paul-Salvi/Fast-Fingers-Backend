@@ -9,10 +9,10 @@ exports.login = function (req, res) {
       Credentials.login(creds, function (err, token) {
          if (err) {
             res.statusCode = 401;
-            res.json({Error: err});
-         } else {
-            res.json({ AuthToken: token });
+            return res.json({ Error: err });
          }
+         return res.json({ AuthToken: token });
+
       });
    }
 };
